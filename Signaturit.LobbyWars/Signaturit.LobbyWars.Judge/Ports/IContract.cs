@@ -2,7 +2,7 @@
 {
     public interface IContract
     {
-        IParticipant Plaintiff { get; set; }
-        IParticipant Defendant { get; set; }
+        IParticipant Plaintiff { get;}
+        IParticipant Defendant { get;}
     }
 }
