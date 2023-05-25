@@ -1,6 +1,6 @@
-﻿using Signaturit.Judge.Enumerations;
+﻿using Signaturit.LobbyWars.Judge.Enumerations;
 
-namespace Signaturit.Judge.Ports
+namespace Signaturit.LobbyWars.Judge.Ports
 {
     public interface IParticipant
     {

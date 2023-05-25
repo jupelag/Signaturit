@@ -1,4 +1,4 @@
-﻿namespace Signaturit.Judge.Ports
+﻿namespace Signaturit.LobbyWars.Judge.Ports
 {
     public interface IJudgeService
     {

@@ -1,4 +1,4 @@
-﻿namespace Signaturit.Judge.Enumerations
+﻿namespace Signaturit.LobbyWars.Judge.Enumerations
 {
     public enum SignatureTypes
     {
