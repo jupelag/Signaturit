@@ -5,6 +5,5 @@
         King,
         Notary,
         Validator,
-        Empty
     }
 }

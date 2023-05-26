@@ -47,10 +47,11 @@ namespace Signaturit.LobbyWars.LargerSumStrategy.Services
 
         private static IEnumerable<SignatureTypes> CleanContractSignatures(IContract contract, SignatureTypes typeCleaned)
         {
-            if (!contract.Signatures.Contains(SignatureTypes.King)) return contract.Signatures;
+            var signaturesCleaned = contract.Signatures.Where(s => s != null).Select(s=>s.Value).ToArray();
+            if (!contract.Signatures.Contains(SignatureTypes.King)) return signaturesCleaned;
 
-            var signaturesCleaned = contract.Signatures.Where(s => s != typeCleaned).ToArray();
-            var newList = new List<SignatureTypes>(signaturesCleaned.Length);
+            signaturesCleaned = signaturesCleaned.Where(s => s != typeCleaned).ToArray();
+            var newList = new List<SignatureTypes>();
             newList.AddRange(signaturesCleaned);
             return newList;
         }

@@ -15,13 +15,13 @@ namespace Signaturit.LobbyWars.Tests.Judge
         {
             var plaintiffContractMoq = new Mock<IContract>();
             var defendantContractMoq = new Mock<IContract>();
-            var plaintiffSignatures = new List<SignatureTypes>(2)
+            var plaintiffSignatures = new List<SignatureTypes?>(2)
             {
                 SignatureTypes.Notary,
-                SignatureTypes.Empty,
+                null,
                 SignatureTypes.Validator
             };
-            var defendantSignatures = new List<SignatureTypes>(3)
+            var defendantSignatures = new List<SignatureTypes?>(3)
             {
                 SignatureTypes.Notary,
                 SignatureTypes.Validator,
