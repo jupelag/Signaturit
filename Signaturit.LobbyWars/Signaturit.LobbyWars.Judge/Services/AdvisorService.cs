@@ -15,13 +15,15 @@ namespace Signaturit.LobbyWars.Judge.Services
         }
         public SignatureTypes? GetMissingSignatureToWin(IContract ownContract, IContract oppositionContract)
         {
-            ValidateOwnContract(ownContract);
-            ValidateOppositionContract(oppositionContract);
+            ValidateContracts(ownContract, oppositionContract);
 
-            var ownWeight = ownContract.CleanSignatures(SignatureTypes.King)
-                .Sum(s => s.GetSignatureWeight(_signatureWeights));
-            var oppositionWeigth = oppositionContract.CleanSignatures(SignatureTypes.King)
-                .Sum(s => s.GetSignatureWeight(_signatureWeights));
+            return GetMissingWinnerSignature(ownContract, oppositionContract);
+        }
+
+        private SignatureTypes? GetMissingWinnerSignature(IContract ownContract, IContract oppositionContract)
+        {
+            var ownWeight = GetWeight(ownContract);
+            var oppositionWeigth = GetWeight(oppositionContract);
 
             var difference = oppositionWeigth - ownWeight;
             if (difference < 0) return null;
@@ -29,15 +31,27 @@ namespace Signaturit.LobbyWars.Judge.Services
             var signatureTypesPerWeight =
                 _signatureWeights.WeightsPerSignature.Keys.ToDictionary(k => _signatureWeights.WeightsPerSignature[k]);
 
-            var majorWeight = _signatureWeights.WeightsPerSignature.Values.OrderBy(v=>v).FirstOrDefault(v => v > difference);
+            var immediatelyHeavierWeight = _signatureWeights.WeightsPerSignature.Values.OrderBy(v => v).FirstOrDefault(v => v > difference);
 
-            if (majorWeight == 0)
+            if (immediatelyHeavierWeight == 0)
             {
                 throw new InvalidOperationException("It is not possible to overcome the opponent");
             }
-            return signatureTypesPerWeight[majorWeight];
+
+            return signatureTypesPerWeight[immediatelyHeavierWeight];
         }
 
+        private static void ValidateContracts(IContract ownContract, IContract oppositionContract)
+        {
+            ValidateOwnContract(ownContract);
+            ValidateOppositionContract(oppositionContract);
+        }
+
+        private int GetWeight(IContract contract)
+        {
+            return contract.CleanSignatures(SignatureTypes.King)
+                .Sum(s => s.GetSignatureWeight(_signatureWeights));
+        }
         private static void ValidateOppositionContract(IContract oppositionContract)
         {
             if (oppositionContract.Signatures.Any(s => s == null))
