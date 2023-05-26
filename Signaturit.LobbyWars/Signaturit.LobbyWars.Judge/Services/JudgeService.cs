@@ -1,4 +1,4 @@
-﻿using Signaturit.LobbyWars.Judge.Ports;
+﻿using Signaturit.LobbyWars.Judge.Contracts;
 
 namespace Signaturit.LobbyWars.Judge.Services
 {
@@ -11,9 +11,9 @@ namespace Signaturit.LobbyWars.Judge.Services
             _sentencingStrategy = sentencingStrategy;
         }
 
-        public ISentence GetSentence(IContract contract)
+        public ISentence GetSentence(IContract plaintiffContract, IContract defendantContract)
         {
-            return _sentencingStrategy.GetSentence(contract);
+            return _sentencingStrategy.GetSentence(plaintiffContract,defendantContract);
         }
     }
 }

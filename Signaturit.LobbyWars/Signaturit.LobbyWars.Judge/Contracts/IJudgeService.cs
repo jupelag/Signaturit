@@ -1,7 +1,7 @@
-﻿namespace Signaturit.LobbyWars.Judge.Ports
+﻿namespace Signaturit.LobbyWars.Judge.Contracts
 {
     public interface IJudgeService
     {
-        ISentence GetSentence(IContract contract);
+        ISentence GetSentence(IContract plaintiffContract, IContract defendantContract);
     }
 }

@@ -1,8 +1,9 @@
-﻿namespace Signaturit.LobbyWars.Judge.Ports
+﻿using Signaturit.LobbyWars.Judge.Enumerations;
+
+namespace Signaturit.LobbyWars.Judge.Contracts
 {
     public interface IContract
     {
-        IParticipant Plaintiff { get;}
-        IParticipant Defendant { get;}
+        List<SignatureTypes> Signatures { get; }
     }
 }

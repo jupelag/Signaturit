@@ -1,7 +1,7 @@
-﻿using Signaturit.LobbyWars.Judge.Enumerations;
-using Signaturit.LobbyWars.Judge.Ports;
+﻿using Signaturit.LobbyWars.Judge.Contracts;
+using Signaturit.LobbyWars.Judge.Enumerations;
+using Signaturit.LobbyWars.LargerSumStrategy.Contracts;
 using Signaturit.LobbyWars.LargerSumStrategy.Models;
-using Signaturit.LobbyWars.LargerSumStrategy.Ports;
 
 namespace Signaturit.LobbyWars.LargerSumStrategy.Services
 {
@@ -14,17 +14,17 @@ namespace Signaturit.LobbyWars.LargerSumStrategy.Services
             _signatureWeights = signatureWeights;
         }
 
-        public ISentence GetSentence(IContract contract)
+        public ISentence GetSentence(IContract plaintiffContract, IContract defendanContract)
         {
-            var cleanedPlaintiffSignatures = CleanParticipantSignatures(contract.Plaintiff);
-            var cleanedDefendantSignatures = CleanParticipantSignatures(contract.Defendant);
+            var cleanedPlaintiffSignatures = CleanContractSignatures(plaintiffContract, SignatureTypes.Validator);
+            var cleanedDefendantSignatures = CleanContractSignatures(defendanContract,SignatureTypes.Validator);
 
             var plaintiffSignaturesWeight = cleanedPlaintiffSignatures.Sum(GetSignatureWeight);
             var defendantSignaturesWeight = cleanedDefendantSignatures.Sum(GetSignatureWeight);
             
             var result = GetWinner(plaintiffSignaturesWeight, defendantSignaturesWeight);
 
-            return new Sentence(contract.Plaintiff, contract.Defendant, result);
+            return new Sentence(plaintiffContract, defendanContract, result);
         }
 
         private static SentenceResult GetWinner(int plaintiffSignaturesWeight, int defendantSignaturesWeight)
@@ -45,13 +45,13 @@ namespace Signaturit.LobbyWars.LargerSumStrategy.Services
             throw new KeyNotFoundException($"Weight for {signatureType} not configured.");
         }
 
-        private static IEnumerable<SignatureTypes> CleanParticipantSignatures(IParticipant participant)
+        private static IEnumerable<SignatureTypes> CleanContractSignatures(IContract contract, SignatureTypes typeCleaned)
         {
-            if (!participant.Signatures.Contains(SignatureTypes.King)) return participant.Signatures;
+            if (!contract.Signatures.Contains(SignatureTypes.King)) return contract.Signatures;
 
-            var signaturesWithoutValidator = participant.Signatures.Where(s => s != SignatureTypes.Validator).ToArray();
-            var newList = new List<SignatureTypes>(signaturesWithoutValidator.Length);
-            newList.AddRange(signaturesWithoutValidator);
+            var signaturesCleaned = contract.Signatures.Where(s => s != typeCleaned).ToArray();
+            var newList = new List<SignatureTypes>(signaturesCleaned.Length);
+            newList.AddRange(signaturesCleaned);
             return newList;
         }
     }

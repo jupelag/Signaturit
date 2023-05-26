@@ -1,6 +1,6 @@
 ﻿using Signaturit.LobbyWars.Judge.Enumerations;
 
-namespace Signaturit.LobbyWars.LargerSumStrategy.Ports
+namespace Signaturit.LobbyWars.LargerSumStrategy.Contracts
 {
     public interface ISignatureWeights
     {

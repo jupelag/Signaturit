@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using Moq;
+using Signaturit.LobbyWars.Judge.Contracts;
 using Signaturit.LobbyWars.Judge.Enumerations;
-using Signaturit.LobbyWars.Judge.Ports;
-using Signaturit.LobbyWars.LargerSumStrategy.Ports;
+using Signaturit.LobbyWars.LargerSumStrategy.Contracts;
 using Signaturit.LobbyWars.LargerSumStrategy.Services;
 using Xunit;
 
@@ -13,8 +13,8 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
         [Fact]
         public void GetSentece_when_signatures_contains_king_but_not_validator()
         {
-            var plaintiffMoq = new Mock<IParticipant>();
-            var defendantMoq = new Mock<IParticipant>();
+            var plaintiffContractMoq = new Mock<IContract>();
+            var defendantContractMoq = new Mock<IContract>();
             var plaintiffSignatures = new List<SignatureTypes>(2)
             {
                 SignatureTypes.King,
@@ -26,12 +26,8 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
                 SignatureTypes.Notary,
                 SignatureTypes.Validator
             };
-            plaintiffMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
-            defendantMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
-
-            var contractMoq = new Mock<IContract>();
-            contractMoq.Setup(c=>c.Plaintiff).Returns(plaintiffMoq.Object);
-            contractMoq.Setup(c => c.Defendant).Returns(defendantMoq.Object);
+            plaintiffContractMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
+            defendantContractMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
 
             var signatureTypesWeights = new Dictionary<SignatureTypes, int>()
             {
@@ -43,15 +39,15 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
             weightsMoq.Setup(w => w.WeightsPerSignature).Returns(signatureTypesWeights);
 
             var service = new LargerSumService(weightsMoq.Object);
-            var sentence = service.GetSentence(contractMoq.Object);
+            var sentence = service.GetSentence(plaintiffContractMoq.Object,defendantContractMoq.Object);
             sentence.Result.Should().Be(SentenceResult.Plaintiff);
         }
 
         [Fact]
         public void GetSentece_when_signatures_contains_king_and_validator()
         {
-            var plaintiffMoq = new Mock<IParticipant>();
-            var defendantMoq = new Mock<IParticipant>();
+            var plaintiffContractMoq = new Mock<IContract>();
+            var defendantContractMoq = new Mock<IContract>();
             var plaintiffSignatures = new List<SignatureTypes>(2)
             {
                 SignatureTypes.King,
@@ -64,12 +60,8 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
                 SignatureTypes.Notary,
                 SignatureTypes.Notary
             };
-            plaintiffMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
-            defendantMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
-
-            var contractMoq = new Mock<IContract>();
-            contractMoq.Setup(c => c.Plaintiff).Returns(plaintiffMoq.Object);
-            contractMoq.Setup(c => c.Defendant).Returns(defendantMoq.Object);
+            plaintiffContractMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
+            defendantContractMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
 
             var signatureTypesWeights = new Dictionary<SignatureTypes, int>()
             {
@@ -81,32 +73,29 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
             weightsMoq.Setup(w => w.WeightsPerSignature).Returns(signatureTypesWeights);
 
             var service = new LargerSumService(weightsMoq.Object);
-            var sentence = service.GetSentence(contractMoq.Object);
+            var sentence = service.GetSentence(plaintiffContractMoq.Object, defendantContractMoq.Object);
             sentence.Result.Should().Be(SentenceResult.Defendant);
         }
 
         [Fact]
         public void GetSentence_key_weight_not_configured_throws_exception()
         {
-            var plaintiffMoq = new Mock<IParticipant>();
-            var defendantMoq = new Mock<IParticipant>();
+            var plaintiffContractMoq = new Mock<IContract>();
+            var defendantContractMoq = new Mock<IContract>();
             var plaintiffSignatures = new List<SignatureTypes>(2)
             {
                 SignatureTypes.King,
-                SignatureTypes.Notary
+                SignatureTypes.Validator,
+                SignatureTypes.Validator
             };
             var defendantSignatures = new List<SignatureTypes>(3)
             {
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
-                SignatureTypes.Validator
+                SignatureTypes.Notary
             };
-            plaintiffMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
-            defendantMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
-
-            var contractMoq = new Mock<IContract>();
-            contractMoq.Setup(c => c.Plaintiff).Returns(plaintiffMoq.Object);
-            contractMoq.Setup(c => c.Defendant).Returns(defendantMoq.Object);
+            plaintiffContractMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
+            defendantContractMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
 
             var signatureTypesWeights = new Dictionary<SignatureTypes, int>()
             {
@@ -116,15 +105,14 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
             var weightsMoq = new Mock<ISignatureWeights>();
             weightsMoq.Setup(w => w.WeightsPerSignature).Returns(signatureTypesWeights);
             var service = new LargerSumService(weightsMoq.Object);
-            FluentActions.Invoking(()=>service.GetSentence(contractMoq.Object)).Should().Throw<KeyNotFoundException>();
+            FluentActions.Invoking(()=>service.GetSentence(plaintiffContractMoq.Object, defendantContractMoq.Object)).Should().Throw<KeyNotFoundException>();
         }
 
         [Fact]
         public void GetSentence_plaintiff_win_without_king()
         {
-
-            var plaintiffMoq = new Mock<IParticipant>();
-            var defendantMoq = new Mock<IParticipant>();
+            var plaintiffContractMoq = new Mock<IContract>();
+            var defendantContractMoq = new Mock<IContract>();
             var plaintiffSignatures = new List<SignatureTypes>(2)
             {
                 SignatureTypes.Notary,
@@ -137,12 +125,8 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
             };
-            plaintiffMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
-            defendantMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
-
-            var contractMoq = new Mock<IContract>();
-            contractMoq.Setup(c => c.Plaintiff).Returns(plaintiffMoq.Object);
-            contractMoq.Setup(c => c.Defendant).Returns(defendantMoq.Object);
+            plaintiffContractMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
+            defendantContractMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
 
             var signatureTypesWeights = new Dictionary<SignatureTypes, int>()
             {
@@ -154,14 +138,14 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
             weightsMoq.Setup(w => w.WeightsPerSignature).Returns(signatureTypesWeights);
 
             var service = new LargerSumService(weightsMoq.Object);
-            var sentence = service.GetSentence(contractMoq.Object);
+            var sentence = service.GetSentence(plaintiffContractMoq.Object, defendantContractMoq.Object);
             sentence.Result.Should().Be(SentenceResult.Plaintiff);
         }
         [Fact]
         public void GetSentence_defendant_win_without_king()
         {
-            var plaintiffMoq = new Mock<IParticipant>();
-            var defendantMoq = new Mock<IParticipant>();
+            var plaintiffContractMoq = new Mock<IContract>();
+            var defendantContractMoq = new Mock<IContract>();
             var plaintiffSignatures = new List<SignatureTypes>(2)
             {
                 SignatureTypes.Notary,
@@ -174,12 +158,8 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
                 SignatureTypes.Validator,
                 SignatureTypes.Validator
             };
-            plaintiffMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
-            defendantMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
-
-            var contractMoq = new Mock<IContract>();
-            contractMoq.Setup(c => c.Plaintiff).Returns(plaintiffMoq.Object);
-            contractMoq.Setup(c => c.Defendant).Returns(defendantMoq.Object);
+            plaintiffContractMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
+            defendantContractMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
 
             var signatureTypesWeights = new Dictionary<SignatureTypes, int>()
             {
@@ -191,15 +171,15 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
             weightsMoq.Setup(w => w.WeightsPerSignature).Returns(signatureTypesWeights);
 
             var service = new LargerSumService(weightsMoq.Object);
-            var sentence = service.GetSentence(contractMoq.Object);
+            var sentence = service.GetSentence(plaintiffContractMoq.Object, defendantContractMoq.Object);
             sentence.Result.Should().Be(SentenceResult.Defendant);
         }
 
         [Fact]
         public void GetSentences_is_a_draw()
         {
-            var plaintiffMoq = new Mock<IParticipant>();
-            var defendantMoq = new Mock<IParticipant>();
+            var plaintiffContractMoq = new Mock<IContract>();
+            var defendantContractMoq = new Mock<IContract>();
             var plaintiffSignatures = new List<SignatureTypes>(2)
             {
                 SignatureTypes.Notary,
@@ -210,12 +190,8 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
             };
-            plaintiffMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
-            defendantMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
-
-            var contractMoq = new Mock<IContract>();
-            contractMoq.Setup(c => c.Plaintiff).Returns(plaintiffMoq.Object);
-            contractMoq.Setup(c => c.Defendant).Returns(defendantMoq.Object);
+            plaintiffContractMoq.Setup(p => p.Signatures).Returns(plaintiffSignatures);
+            defendantContractMoq.Setup(p => p.Signatures).Returns(defendantSignatures);
 
             var signatureTypesWeights = new Dictionary<SignatureTypes, int>()
             {
@@ -227,7 +203,7 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
             weightsMoq.Setup(w => w.WeightsPerSignature).Returns(signatureTypesWeights);
 
             var service = new LargerSumService(weightsMoq.Object);
-            var sentence = service.GetSentence(contractMoq.Object);
+            var sentence = service.GetSentence(plaintiffContractMoq.Object, defendantContractMoq.Object);
             sentence.Result.Should().Be(SentenceResult.Draw);
         }
     }
