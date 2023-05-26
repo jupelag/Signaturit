@@ -14,11 +14,6 @@ namespace Signaturit.LobbyWars.LargerSumStrategy.Services
             _signatureWeights = signatureWeights;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="contract"></param>
-        /// <returns>Null if draw</returns>
         public ISentence? GetSentence(IContract contract)
         {
             var cleanedPlaintiffSignatures = CleanParticipantSignatures(contract.Plaintiff);
@@ -26,10 +21,19 @@ namespace Signaturit.LobbyWars.LargerSumStrategy.Services
 
             var plaintiffSignaturesWeight = cleanedPlaintiffSignatures.Sum(GetSignatureWeight);
             var defendantSignaturesWeight = cleanedDefendantSignatures.Sum(GetSignatureWeight);
-            if (plaintiffSignaturesWeight == defendantSignaturesWeight) return null;
+            
+            var result = GetWinner(plaintiffSignaturesWeight, defendantSignaturesWeight);
 
-            var winner = plaintiffSignaturesWeight > defendantSignaturesWeight ? contract.Plaintiff : contract.Defendant;
-            return new Sentence(contract.Plaintiff, contract.Defendant, winner);
+            return new Sentence(contract.Plaintiff, contract.Defendant, result);
+        }
+
+        private static SentenceResult GetWinner(int plaintiffSignaturesWeight, int defendantSignaturesWeight)
+        {
+            var winner = plaintiffSignaturesWeight > defendantSignaturesWeight
+                ? SentenceResult.Plaintiff
+                : SentenceResult.Defendant;
+            if (plaintiffSignaturesWeight == defendantSignaturesWeight) winner = SentenceResult.Draw;
+            return winner;
         }
 
         private int GetSignatureWeight(SignatureTypes signatureType)

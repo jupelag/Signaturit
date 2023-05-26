@@ -1,17 +1,18 @@
-﻿using Signaturit.LobbyWars.Judge.Ports;
+﻿using Signaturit.LobbyWars.Judge.Enumerations;
+using Signaturit.LobbyWars.Judge.Ports;
 
 namespace Signaturit.LobbyWars.LargerSumStrategy.Models
 {
     internal class Sentence:ISentence
     {
-        public Sentence(IParticipant plaintiff, IParticipant defendant, IParticipant winner)
+        public Sentence(IParticipant plaintiff, IParticipant defendant, SentenceResult result)
         {
             Plaintiff = plaintiff;
             Defendant = defendant;
-            Winner = winner;
+            Result = result;
         }
         public IParticipant Plaintiff { get;}
         public IParticipant Defendant { get;}
-        public IParticipant Winner { get;}
+        public SentenceResult Result { get;}
     }
 }

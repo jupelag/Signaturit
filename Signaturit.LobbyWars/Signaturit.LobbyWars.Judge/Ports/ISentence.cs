@@ -1,7 +1,9 @@
-﻿namespace Signaturit.LobbyWars.Judge.Ports
+﻿using Signaturit.LobbyWars.Judge.Enumerations;
+
+namespace Signaturit.LobbyWars.Judge.Ports
 {
     public interface ISentence:IContract
     {
-        IParticipant Winner { get; }
+        SentenceResult Result { get; }
     }
 }
