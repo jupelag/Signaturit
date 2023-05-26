@@ -14,7 +14,7 @@ namespace Signaturit.LobbyWars.LargerSumStrategy.Services
             _signatureWeights = signatureWeights;
         }
 
-        public ISentence? GetSentence(IContract contract)
+        public ISentence GetSentence(IContract contract)
         {
             var cleanedPlaintiffSignatures = CleanParticipantSignatures(contract.Plaintiff);
             var cleanedDefendantSignatures = CleanParticipantSignatures(contract.Defendant);

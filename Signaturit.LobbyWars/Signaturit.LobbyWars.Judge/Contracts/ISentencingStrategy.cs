@@ -2,6 +2,6 @@
 {
     public interface ISentencingStrategy
     {
-        public ISentence? GetSentence(IContract contract);
+        public ISentence GetSentence(IContract contract);
     }
 }

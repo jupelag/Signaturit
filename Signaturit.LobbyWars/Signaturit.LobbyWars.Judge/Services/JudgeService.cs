@@ -10,9 +10,10 @@ namespace Signaturit.LobbyWars.Judge.Services
         {
             _sentencingStrategy = sentencingStrategy;
         }
+
         public ISentence GetSentence(IContract contract)
         {
-            throw new NotImplementedException();
+            return _sentencingStrategy.GetSentence(contract);
         }
     }
 }
