@@ -18,8 +18,8 @@ namespace Signaturit.LobbyWars.LargerSumStrategy.Services
 
         public ISentence GetSentence(IContract plaintiffContract, IContract defendanContract)
         {
-            var cleanedPlaintiffSignatures = plaintiffContract.CleanSignatures(SignatureTypes.Validator);
-            var cleanedDefendantSignatures = defendanContract.CleanSignatures(SignatureTypes.Validator);
+            var cleanedPlaintiffSignatures = plaintiffContract.CleanSignatures(SignatureTypes.King,SignatureTypes.Validator);
+            var cleanedDefendantSignatures = defendanContract.CleanSignatures(SignatureTypes.King,SignatureTypes.Validator);
 
             var plaintiffSignaturesWeight = cleanedPlaintiffSignatures.Sum(s=>s.GetSignatureWeight(_signatureWeights));
             var defendantSignaturesWeight = cleanedDefendantSignatures.Sum(s => s.GetSignatureWeight(_signatureWeights));

@@ -49,7 +49,7 @@ namespace Signaturit.LobbyWars.Judge.Services
 
         private int GetWeight(IContract contract)
         {
-            return contract.CleanSignatures(SignatureTypes.King)
+            return contract.CleanSignatures(SignatureTypes.King, SignatureTypes.Validator)
                 .Sum(s => s.GetSignatureWeight(_signatureWeights));
         }
         private static void ValidateOppositionContract(IContract oppositionContract)
