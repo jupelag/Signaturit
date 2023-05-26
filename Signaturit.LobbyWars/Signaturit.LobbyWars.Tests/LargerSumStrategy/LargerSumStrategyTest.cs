@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using Moq;
-using Signaturit.LobbyWars.Judge.Contracts;
 using Signaturit.LobbyWars.Judge.Enumerations;
-using Signaturit.LobbyWars.LargerSumStrategy.Contracts;
 using Signaturit.LobbyWars.LargerSumStrategy.Services;
+using Signaturit.LobbyWars.Shared.Contracts;
+using Signaturit.LobbyWars.Shared.Enumerations;
 using Xunit;
 
 namespace Signaturit.LobbyWars.Tests.LargerSumStrategy

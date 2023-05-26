@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Signaturit.LobbyWars.Judge\Signaturit.LobbyWars.Judge.csproj" />
+    <ProjectReference Include="..\Signaturit.LobbyWars.Shared\Signaturit.LobbyWars.Shared.csproj" />
   </ItemGroup>
 
 </Project>

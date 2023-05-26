@@ -1,4 +1,6 @@
-﻿namespace Signaturit.LobbyWars.Judge.Contracts
+﻿using Signaturit.LobbyWars.Shared.Contracts;
+
+namespace Signaturit.LobbyWars.Judge.Contracts
 {
     public interface IJudgeService
     {

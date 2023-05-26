@@ -1,4 +1,5 @@
 ﻿using Signaturit.LobbyWars.Judge.Contracts;
+using Signaturit.LobbyWars.Shared.Contracts;
 
 namespace Signaturit.LobbyWars.Judge.Services
 {

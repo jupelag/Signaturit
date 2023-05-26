@@ -1,14 +1,8 @@
 ﻿using FluentAssertions;
 using Moq;
-using Signaturit.LobbyWars.Judge.Enumerations;
-using Signaturit.LobbyWars.LargerSumStrategy.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Signaturit.LobbyWars.Judge.Contracts;
 using Signaturit.LobbyWars.Judge.Services;
+using Signaturit.LobbyWars.Shared.Contracts;
 using Xunit;
 
 namespace Signaturit.LobbyWars.Tests.Judge

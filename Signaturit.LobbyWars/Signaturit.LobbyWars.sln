@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signaturit.LobbyWars.LargerSumStrategy", "Signaturit.LobbyWars.LargerSumStrategy\Signaturit.LobbyWars.LargerSumStrategy.csproj", "{7B6CEC01-78FB-4330-911E-32CD159B9163}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signaturit.LobbyWars.LargerSumStrategy", "Signaturit.LobbyWars.LargerSumStrategy\Signaturit.LobbyWars.LargerSumStrategy.csproj", "{7B6CEC01-78FB-4330-911E-32CD159B9163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signaturit.LobbyWars.Judge", "Signaturit.LobbyWars.Judge\Signaturit.LobbyWars.Judge.csproj", "{1E953192-456D-4E03-8330-DEC9B1B287D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signaturit.LobbyWars.Judge", "Signaturit.LobbyWars.Judge\Signaturit.LobbyWars.Judge.csproj", "{1E953192-456D-4E03-8330-DEC9B1B287D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signaturit.LobbyWars.Tests", "Signaturit.LobbyWars.Tests\Signaturit.LobbyWars.Tests.csproj", "{5F727DCE-C2B9-4B22-BCD2-E36F2DE3BB51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signaturit.LobbyWars.Tests", "Signaturit.LobbyWars.Tests\Signaturit.LobbyWars.Tests.csproj", "{5F727DCE-C2B9-4B22-BCD2-E36F2DE3BB51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signaturit.LobbyWars.Shared", "Signaturit.LobbyWars.Shared\Signaturit.LobbyWars.Shared.csproj", "{99CB6E58-74DC-469D-91A2-00CE97EA1462}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5F727DCE-C2B9-4B22-BCD2-E36F2DE3BB51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F727DCE-C2B9-4B22-BCD2-E36F2DE3BB51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F727DCE-C2B9-4B22-BCD2-E36F2DE3BB51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CB6E58-74DC-469D-91A2-00CE97EA1462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CB6E58-74DC-469D-91A2-00CE97EA1462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CB6E58-74DC-469D-91A2-00CE97EA1462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CB6E58-74DC-469D-91A2-00CE97EA1462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

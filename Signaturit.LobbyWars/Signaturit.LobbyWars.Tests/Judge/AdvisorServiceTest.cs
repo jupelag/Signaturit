@@ -1,9 +1,8 @@
 ﻿using FluentAssertions;
 using Moq;
-using Signaturit.LobbyWars.Judge.Contracts;
-using Signaturit.LobbyWars.Judge.Enumerations;
 using Signaturit.LobbyWars.Judge.Services;
-using Signaturit.LobbyWars.LargerSumStrategy.Contracts;
+using Signaturit.LobbyWars.Shared.Contracts;
+using Signaturit.LobbyWars.Shared.Enumerations;
 using Xunit;
 
 namespace Signaturit.LobbyWars.Tests.Judge
@@ -11,7 +10,7 @@ namespace Signaturit.LobbyWars.Tests.Judge
     public class AdvisorServiceTest
     {
         [Fact]
-        public void a()
+        public void GetMissingSignatureToWin_works()
         {
             var plaintiffContractMoq = new Mock<IContract>();
             var defendantContractMoq = new Mock<IContract>();
@@ -39,7 +38,7 @@ namespace Signaturit.LobbyWars.Tests.Judge
             var weightsMoq = new Mock<ISignatureWeights>();
             weightsMoq.Setup(w => w.WeightsPerSignature).Returns(signatureTypesWeights);
 
-            var advisor = new AdvisorService();
+            var advisor = new AdvisorService(weightsMoq.Object);
             advisor.GetMissingSignatureToWin(plaintiffContractMoq.Object, defendantContractMoq.Object).Should()
                 .Be(SignatureTypes.Notary);
         }
