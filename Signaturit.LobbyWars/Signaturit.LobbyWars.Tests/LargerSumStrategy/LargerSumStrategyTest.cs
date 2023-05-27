@@ -48,7 +48,7 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
         {
             var plaintiffContractMoq = new Mock<IContract>();
             var defendantContractMoq = new Mock<IContract>();
-            var plaintiffSignatures = new List<SignatureTypes?>(2)
+            var plaintiffSignatures = new List<SignatureTypes?>(3)
             {
                 SignatureTypes.King,
                 SignatureTypes.Validator,
@@ -82,7 +82,7 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
         {
             var plaintiffContractMoq = new Mock<IContract>();
             var defendantContractMoq = new Mock<IContract>();
-            var plaintiffSignatures = new List<SignatureTypes?>(2)
+            var plaintiffSignatures = new List<SignatureTypes?>(3)
             {
                 SignatureTypes.King,
                 SignatureTypes.Validator,
@@ -113,7 +113,7 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
         {
             var plaintiffContractMoq = new Mock<IContract>();
             var defendantContractMoq = new Mock<IContract>();
-            var plaintiffSignatures = new List<SignatureTypes?>(2)
+            var plaintiffSignatures = new List<SignatureTypes?>(3)
             {
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
@@ -151,7 +151,7 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
             };
-            var defendantSignatures = new List<SignatureTypes?>(3)
+            var defendantSignatures = new List<SignatureTypes?>(4)
             {
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
@@ -185,7 +185,7 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
             };
-            var defendantSignatures = new List<SignatureTypes?>(3)
+            var defendantSignatures = new List<SignatureTypes?>(2)
             {
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
@@ -212,7 +212,7 @@ namespace Signaturit.LobbyWars.Tests.LargerSumStrategy
         {
             var plaintiffContractMoq = new Mock<IContract>();
             var defendantContractMoq = new Mock<IContract>();
-            var plaintiffSignatures = new List<SignatureTypes?>(2)
+            var plaintiffSignatures = new List<SignatureTypes?>(3)
             {
                 SignatureTypes.Notary,
                 SignatureTypes.Notary,
